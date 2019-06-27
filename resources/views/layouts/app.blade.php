@@ -197,21 +197,21 @@
                             <!-- ACCOUNT -->
                             <div class="col-md-3 clearfix">
                                 <div class="header-ctn">
-                                    <!-- Wishlist -->
+                                    {{-- <!-- Wishlist -->
                                     <div>
                                         <a href="#">
                                             <i class="fa fa-heart-o"></i>
-                                            <span>Your Wishlist</span>
+                                            <span>Your favorite products</span>
                                             <div class="qty">2</div>
                                         </a>
                                     </div>
-                                    <!-- /Wishlist -->
+                                    <!-- /Wishlist --> --}}
 
                                     <!-- Cart -->
                                     <div class="dropdown">
                                         <a class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
-                                            <i class="fa fa-shopping-cart"></i>
-                                            <span>Your Cart</span>
+                                            <i class="fa fa-heart-o"></i>
+                                            <span>Your favorite products</span>
                                             <div class="qty">3</div>
                                         </a>
                                         <div class="cart-dropdown">

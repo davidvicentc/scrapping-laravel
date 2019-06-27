@@ -2,7 +2,7 @@
 
 @section('content')
 <!-- BREADCRUMB -->
-<div id="breadcrumb" class="section">
+{{-- <div id="breadcrumb" class="section">
     <!-- container -->
     <div class="container">
         <!-- row -->
@@ -19,7 +19,7 @@
         <!-- /row -->
     </div>
     <!-- /container -->
-</div>
+</div> --}}
 <!-- /BREADCRUMB -->
 
 <!-- SECTION -->
@@ -39,8 +39,8 @@
                             <input type="checkbox" id="category-1">
                             <label for="category-1">
                                 <span></span>
-                                Laptops
-                                <small>(120)</small>
+                                Diswashers
+                                <small>({{ $countDatadiswashers }})</small>
                             </label>
                         </div>
 
@@ -48,44 +48,8 @@
                             <input type="checkbox" id="category-2">
                             <label for="category-2">
                                 <span></span>
-                                Smartphones
-                                <small>(740)</small>
-                            </label>
-                        </div>
-
-                        <div class="input-checkbox">
-                            <input type="checkbox" id="category-3">
-                            <label for="category-3">
-                                <span></span>
-                                Cameras
-                                <small>(1450)</small>
-                            </label>
-                        </div>
-
-                        <div class="input-checkbox">
-                            <input type="checkbox" id="category-4">
-                            <label for="category-4">
-                                <span></span>
-                                Accessories
-                                <small>(578)</small>
-                            </label>
-                        </div>
-
-                        <div class="input-checkbox">
-                            <input type="checkbox" id="category-5">
-                            <label for="category-5">
-                                <span></span>
-                                Laptops
-                                <small>(120)</small>
-                            </label>
-                        </div>
-
-                        <div class="input-checkbox">
-                            <input type="checkbox" id="category-6">
-                            <label for="category-6">
-                                <span></span>
-                                Smartphones
-                                <small>(740)</small>
+                                Small Appliance
+                                <small>({{ $countDatasmall }})</small>
                             </label>
                         </div>
                     </div>
@@ -93,7 +57,7 @@
                 <!-- /aside Widget -->
 
                 <!-- aside Widget -->
-                <div class="aside">
+                {{-- <div class="aside">
                     <h3 class="aside-title">Price</h3>
                     <div class="price-filter">
                         <div id="price-slider"></div>
@@ -109,11 +73,11 @@
                             <span class="qty-down">-</span>
                         </div>
                     </div>
-                </div>
+                </div> --}}
                 <!-- /aside Widget -->
 
                 <!-- aside Widget -->
-                <div class="aside">
+                {{-- <div class="aside">
                     <h3 class="aside-title">Brand</h3>
                     <div class="checkbox-filter">
                         <div class="input-checkbox">
@@ -165,11 +129,11 @@
                             </label>
                         </div>
                     </div>
-                </div>
+                </div> --}}
                 <!-- /aside Widget -->
 
                 <!-- aside Widget -->
-                <div class="aside">
+                {{-- <div class="aside">
                     <h3 class="aside-title">Top selling</h3>
                     <div class="product-widget">
                         <div class="product-img">
@@ -206,7 +170,7 @@
                             </h4>
                         </div>
                     </div>
-                </div>
+                </div> --}}
                 <!-- /aside Widget -->
             </div>
             <!-- /ASIDE -->
@@ -241,14 +205,25 @@
                 <div class="row">
                     <!-- product -->
                     <div class="row">
-                        <form action="{{ route('sync') }}" method="GET">
-                            @csrf
-                            <button class="btn btn-primary" type='submit'>Sync</button>
-                        </form>
-                        <form action="{{route('delete-all')}}" method="get">
-                            @csrf
-                            <button class="btn btn-danger" type="submit">Delete all</button>
-                        </form>
+                        <div class="col-md-4">
+                            <form action="{{ route('sync-small-appliance') }}" method="GET">
+                                @csrf
+                                <button class="btn btn-primary" type='submit'>Sync small appliance</button>
+                            </form>
+                        </div>
+                        <div class="col-md-4">
+                            <form action="{{ route('sync-diswashers') }}" method="GET">
+                                @csrf
+                                <button class="btn btn-success" type='submit'>sync diswashers</button>
+                            </form>
+                        </div>
+                        <div class="col-md-4">
+                            <form action="{{route('delete-all')}}" method="get">
+                                @csrf
+                                <button class="btn btn-danger" type="submit">Delete all</button>
+                            </form>
+                        </div>
+                    <p>total {{ $total }}</p>
                     </div>
                     @foreach ($products as $product)
                     <div class="col-md-4">
@@ -283,7 +258,7 @@
                                 </div>
                             </div>
                             <div class="add-to-cart">
-                                <button class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i> add to
+                                <button class="add-to-cart-btn"><i class="fa fa-star"></i> add to
                                     favorite</button>
                             </div>
                         </div>

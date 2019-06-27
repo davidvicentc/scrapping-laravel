@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateSmallAppliancesTable extends Migration
+class CreateCategoriesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,9 @@ class CreateSmallAppliancesTable extends Migration
      */
     public function up()
     {
-        Schema::create('small_appliances', function (Blueprint $table) {
-            $table->bigIncrements('id');
-            $table->string('title');
-            $table->string('price');
-            $table->text('imgUrl');
+        Schema::create('categories', function (Blueprint $table) {
+            $table->increments('id');
+            $table->string('name');
             $table->timestamps();
         });
     }
@@ -29,6 +27,6 @@ class CreateSmallAppliancesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('small_appliances');
+        Schema::dropIfExists('categories');
     }
 }

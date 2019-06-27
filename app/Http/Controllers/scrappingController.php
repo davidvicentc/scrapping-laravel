@@ -4,29 +4,48 @@ namespace App\Http\Controllers;
 
 use Goutte\Client;
 use Illuminate\Http\Request;
-use App\SmallAppliance;
+use App\Product;
 use Symfony\Component\DomCrawler\Crawler;
 
 class scrappingController extends Controller
 {
     protected $products;
     protected $notfound;
-    public function asyncData(Client $client) {
+
+    public function asyncDiswashers(Client $client) {
+        $this->asyncDataDishwashers($client);
+        return redirect()->route('index');
+    }
+    public function asyncSmallAppliance(Client $client) {
+        $this->asyncDataSmallAppliance($client);
+        return redirect()->route('index');
+    }
+
+    public function asyncDataSmallAppliance($client) {
         for ($i = 1;$this->notfound !== 'No results found'; $i++) {
 
             $pageUrl = "https://www.appliancesdelivered.ie/search/small-appliances?sort=price_desc&page=$i";
             $crawler = $client->request('GET', $pageUrl);
 
             $this->notFound($crawler);
-            $this->extractProductFrom($crawler);
+            $this->extractProductSmallApplianceFrom($crawler);
+
         }
-
-        return redirect()->route('index');
-
-        // print_r(count($this->data));
     }
 
-    public function extractProductFrom(Crawler $crawler) {
+    public function asyncDataDishwashers($client) {
+        for ($i = 1;$this->notfound !== 'No results found'; $i++) {
+
+            $pageUrl = "https://www.appliancesdelivered.ie/dishwashers?sort=price_asc&page=$i";
+            $crawler = $client->request('GET', $pageUrl);
+
+            $this->notFound($crawler);
+            $this->extractProductDishwashersFrom($crawler);
+
+        }
+    }
+
+    public function extractProductSmallApplianceFrom(Crawler $crawler) {
 
         $clases = 'search-results-product row';
         $crawler->filter("[class='$clases']")->each(function($node) {
@@ -34,14 +53,33 @@ class scrappingController extends Controller
             $data['priceProduct'] = $node->filter(".product-description .section-title")->first()->text();
             $data['imageProduct'] = $node->filter(".product-image a picture source")->first()->attr('data-srcset');
 
-            $smallAppliance = new SmallAppliance;
-            $smallAppliance->title = $data['titleProduct'];
-            $smallAppliance->price = $data['priceProduct'];
-            $smallAppliance->imgUrl = $data['imageProduct'];
-            $smallAppliance->save();
+            $product = new Product;
+            $product->title = $data['titleProduct'];
+            $product->price = $data['priceProduct'];
+            $product->imgUrl = $data['imageProduct'];
+            $product->category_id = 1;
+            $product->save();
+
+        });
+    }
+    public function extractProductDishwashersFrom(Crawler $crawler) {
+
+        $clases = 'search-results-product row';
+        $crawler->filter("[class='$clases']")->each(function($node) {
+            $data['titleProduct'] = $node->filter(".product-description .row h4 > a")->first()->text();
+            $data['priceProduct'] = $node->filter(".product-description .section-title")->first()->text();
+            $data['imageProduct'] = $node->filter(".product-image a picture source")->first()->attr('data-srcset');
+
+
+            $product = new Product;
+            $product->title = $data['titleProduct'];
+            $product->price = $data['priceProduct'];
+            $product->imgUrl = $data['imageProduct'];
+            $product->category_id = 2;
+            $product->save();
+
             // print_r($data);
-            // dd($data);
-            // return 'terminado';
+
         });
     }
 
@@ -52,8 +90,7 @@ class scrappingController extends Controller
 
     public function deleteAll() {
 
-        SmallAppliance::truncate();
-
+        Product::truncate();
 
         return redirect()->route('index');
 

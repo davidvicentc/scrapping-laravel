@@ -11,7 +11,8 @@
 |
 */
 
-Route::get('/scrapping', 'scrappingController@asyncData')->name('sync');
+Route::get('/sync-small-appliance', 'scrappingController@asyncSmallAppliance')->name('sync-small-appliance');
+Route::get('/sync-diswashers', 'scrappingController@asyncDiswashers')->name('sync-diswashers');
 Route::get('/delete-all-products', 'scrappingController@deleteAll')->name('delete-all');
 
 Auth::routes();
