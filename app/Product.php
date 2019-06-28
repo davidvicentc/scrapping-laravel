@@ -6,5 +6,17 @@ use Illuminate\Database\Eloquent\Model;
 
 class Product extends Model
 {
-    protected $fillable = ['title', 'price', 'imgUrl', 'categories_id'];
+    //
+
+
+
+    public function users()
+    {
+        return $this->belongstoMany(User::class);
+    }
+
+    // public function user()
+    // {
+    //     return $this->belongsTo('App\User');
+    // }
 }

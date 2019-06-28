@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Goutte\Client;
 use Illuminate\Http\Request;
 use App\Product;
+use DB;
 use Symfony\Component\DomCrawler\Crawler;
 
 class scrappingController extends Controller
@@ -14,11 +15,11 @@ class scrappingController extends Controller
 
     public function asyncDiswashers(Client $client) {
         $this->asyncDataDishwashers($client);
-        return redirect()->route('index');
+        return redirect()->back();
     }
     public function asyncSmallAppliance(Client $client) {
         $this->asyncDataSmallAppliance($client);
-        return redirect()->route('index');
+        return redirect()->back();
     }
 
     public function asyncDataSmallAppliance($client) {
@@ -54,6 +55,13 @@ class scrappingController extends Controller
             $data['imageProduct'] = $node->filter(".product-image a picture source")->first()->attr('data-srcset');
 
             $product = new Product;
+
+            // Product::create([
+            //     'title' => $data['titleProduct'],
+            //     'price' => $data['priceProduct'],
+            //     'imgUrl' => $data['imageProduct'],
+            //     'category_id' => 1
+            // ]);
             $product->title = $data['titleProduct'];
             $product->price = $data['priceProduct'];
             $product->imgUrl = $data['imageProduct'];
@@ -71,6 +79,12 @@ class scrappingController extends Controller
             $data['imageProduct'] = $node->filter(".product-image a picture source")->first()->attr('data-srcset');
 
 
+            // Product::create([
+            //     'title' => $data['titleProduct'],
+            //     'price' => $data['priceProduct'],
+            //     'imgUrl' => $data['imageProduct'],
+            //     'category_id' => 2
+            // ]);
             $product = new Product;
             $product->title = $data['titleProduct'];
             $product->price = $data['priceProduct'];
@@ -90,9 +104,10 @@ class scrappingController extends Controller
 
     public function deleteAll() {
 
-        Product::truncate();
+        DB::table('products')->delete();
 
-        return redirect()->route('index');
+
+        return redirect()->back();
 
     }
 }

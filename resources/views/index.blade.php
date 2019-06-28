@@ -33,26 +33,13 @@
                 <!-- aside Widget -->
                 <div class="aside">
                     <h3 class="aside-title">Categories</h3>
-                    <div class="checkbox-filter">
-
-                        <div class="input-checkbox">
-                            <input type="checkbox" id="category-1">
-                            <label for="category-1">
-                                <span></span>
-                                Diswashers
-                                <small>({{ $countDatadiswashers }})</small>
-                            </label>
-                        </div>
-
-                        <div class="input-checkbox">
-                            <input type="checkbox" id="category-2">
-                            <label for="category-2">
-                                <span></span>
-                                Small Appliance
-                                <small>({{ $countDatasmall }})</small>
-                            </label>
-                        </div>
-                    </div>
+                    <ul>
+                        <li><a href="{{route('dishwashers')}}">Diswashers <small>({{ $countDatadiswashers }})</small></a></li>
+                        <li><a href="{{route('small-appliance')}}">Small Appliance <small>({{ $countDatasmall }})</small></a></li>
+                        <br>
+                        <br>
+                        <li><p>total products <small>({{ $total }})</small></p></li>
+                    </ul>
                 </div>
                 <!-- /aside Widget -->
 
@@ -223,10 +210,11 @@
                                 <button class="btn btn-danger" type="submit">Delete all</button>
                             </form>
                         </div>
-                    <p>total {{ $total }}</p>
+
                     </div>
                     @foreach ($products as $product)
                     <div class="col-md-4">
+                    <a href="{{route('product', $product->id)}}">
                         <div class="product">
                             <div class="product-img">
                                 <img src="{{$product->imgUrl}}" alt="">
@@ -262,10 +250,13 @@
                                     favorite</button>
                             </div>
                         </div>
+                    </a>
                     </div>
                     <div class="clearfix visible-sm visible-xs"></div>
                     @endforeach
-
+                        @if ($total == 0)
+                            <p>Lo sentimos, no hay productos que mostrar!</p>
+                        @endif
                     <!-- /product -->
 
                     <!-- product -->

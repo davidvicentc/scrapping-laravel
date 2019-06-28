@@ -19,3 +19,11 @@ Auth::routes();
 
 Route::get('/dashboard', 'HomeController@dasboard')->name('dashboard');
 Route::get('/', 'ProductController@index')->name('index');
+Route::get('/product/{id}', 'ProductController@product')->name('product');
+
+
+//categorys
+Route::get('/category/dishwashers', 'ProductController@dishwashers')->name('dishwashers');
+Route::get('/category/small-appliance', 'ProductController@small_appliance')->name('small-appliance');
+
+Route::get('test/{id}', 'ProductController@test');
